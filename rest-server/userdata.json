@@ -1,0 +1,34 @@
+{
+  "users": {
+    "EimFSxxqSGPZawggSPSj77TK5wz1": {
+      "email": "johnsmith@gmail.com",
+      "firstName": "John",
+      "lastName": "Smith",
+      "permissionGroups": [""]
+    },
+    "EjU9xMeiLsSM2B3RMeTw5exaf0P2": {
+      "email": "anikamabello33@yahoo.com",
+      "firstName": "Anika",
+      "lastName": "Mabello",
+      "permissionGroups": ["moderator"]
+    },
+    "FRN6VYQr68c1NdfBMPScIFoO2Kn2": {
+      "email": "bartsimpson@fox.com",
+      "firstName": "Bart",
+      "lastName": "Simpson",
+      "permissionGroups": [""]
+    },
+    "YeeeKOe3TnTTcJFqEolqAi4NEss1": {
+      "email": "heisenberg@lospolloshermanos.com",
+      "firstName": "Walter",
+      "lastName": "White",
+      "permissionGroups": ["moderator"]
+    },
+    "xpbfWl65JyShUXlo5jb7FFy7MD83": {
+      "email": "ayoitsyourmandumbledor@hogwarts.edu",
+      "firstName": "Albus",
+      "lastName": "Dumbledore",
+      "permissionGroups": ["admin"]
+    }
+  }
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <!-- HEAD -->
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height, viewport-fit=cover, initial-scale=1"
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta name="Websocket" content="Websocket" />
+    <title id="title">Websocket</title>
+  </head>
+
+  <!-- BODY -->
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root" class="container-fluid">
+      <div class="h-100 row">
+        <div class="col-xl">
+          <div class="align-items-center d-flex justify-content-center mt-5 p-5">
+            <h1 id="hello-world" class="text-dark">Hello World!</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <!-- JAVASCRIPT -->
+  <script type="text/javascript">
+
+    // Creates new WebSocket object with a wss URI as the parameter
+    const socket = new WebSocket('ws://localhost:3000');
+
+    // Fired when a connection with a WebSocket is opened
+    socket.onopen = () => {
+      console.log("Connection opened.");
+    };
+
+    // Fired when data is received through a WebSocket
+    socket.onmessage = (event) => {
+      console.log("Connection received message:", event);
+    };
+
+    // Fired when a connection with a WebSocket is closed
+    socket.onclose = () => {
+      console.log("Connection closed.");
+    };
+
+    // Fired when a connection with a WebSocket has been closed because of an error
+    socket.onerror = (event) => {
+      console.log("Connection closed due to error:", event);
+    };
+
+  </script>
+</html>
