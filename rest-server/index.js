@@ -1,19 +1,17 @@
 // node_modules
 const express = require('express');
+const UserController = require("./UserController.js");
 
 // constants
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const port = process.env.PORT || Number("3000");
-const USER_DATA = require("./userdata.json");
+
+
 
 app.listen(port, () => {
   console.log(`Server running at port: "${port}".`);
 });
 
-app.get('/', (request, response) => {
-  response.send("<h1>Hello, World!</h1>");
-});
-
-app.get('/users', (request, response) => {
-  response.send(USER_DATA);
-});
+UserController.initialize(app);
