@@ -9,13 +9,15 @@ class UserController {
 
     app.get('/user', async (request, response) => {
       console.debug("GET /user called");
+      const user = await UserService.getUser();
       response.send(user);
     });
     
-    app.put('/user', async (request, response) => {
+    app.put('/user/{id}/loans/{loanId}', async (request, response) => {
       console.debug("PUT /user called");
-      const { body } = request;
+      const { body, params } = request;
       const { firstname } = body;
+      const { loanId, id } = params;
       try {
         const user = await UserService.setFirstName(firstname);
         response.send(user);

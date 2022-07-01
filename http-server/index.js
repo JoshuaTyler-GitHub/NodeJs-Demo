@@ -2,7 +2,7 @@
 const http = require("http");
 
 // constants
-const port = process.env.PORT || Number("3000");
+const port = process.env.PORT || Number("3001");
 
 const server = http.createServer((request, response) => {
   response.statusCode = Number("200");

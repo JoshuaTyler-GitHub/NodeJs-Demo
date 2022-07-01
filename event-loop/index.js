@@ -1,11 +1,13 @@
-const bar = () => console.log('bar');
+const example = () => {
+  return new Promise((resolve, reject) => {
+    bat();
+    resolve();
+  });
+}
 
-const baz = () => console.log('baz');
 
-const foo = () => {
-  console.log('foo');
-  setTimeout(bar, 0);
-  baz();
-};
-
-foo();
+const wait = (ms) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
