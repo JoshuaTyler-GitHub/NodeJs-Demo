@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <!-- HEAD -->
   <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="bootstrap.min.css">
+    <link id="favicon" rel="icon" href="public/favicon.ico" />
+    <link rel="manifest" href="public/manifest.json" />
+    <link rel="stylesheet" href="bootstrap.min.css" />
     <meta
       name="viewport"
       content="width=device-width, height=device-height, viewport-fit=cover, initial-scale=1"
@@ -18,41 +19,73 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root" class="container-fluid">
-      <div class="h-100 row">
-        <div class="col-xl">
-          <div class="align-items-center d-flex justify-content-center mt-5 p-5">
+      <div class="row">
+
+        <!-- Header -->
+        <div class="col-12">
+          <div class="align-items-center d-flex justify-content-center m-5">
             <h1 id="hello-world" class="text-dark">Hello World!</h1>
           </div>
         </div>
+
+        <!-- Input -->
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
+          <div class="align-items-center d-flex justify-content-center p-5">
+            <input class="form-control form-text" id="textInput" type="text" />
+            <button class="btn btn-primary" onclick="sendMessage()">
+              Submit
+            </button>
+          </div>
+        </div>
+
+        <!-- Chat History -->
+        <div class="col-12 mx-auto">
+          <div class="align-items-center d-flex justify-content-center p-5">
+            <textarea id="textArea" style="height:300px; width:500px"></textarea>
+          </div>
+        </div>
+
       </div>
     </div>
   </body>
 
   <!-- JAVASCRIPT -->
   <script type="text/javascript">
+    const textArea = document.getElementById('textArea');
+    const textInput = document.getElementById('textInput');
 
     // Creates new WebSocket object with a wss URI as the parameter
-    const socket = new WebSocket('ws://localhost:3000');
+    const socket = new WebSocket('ws://localhost:3001');
 
     // Fired when a connection with a WebSocket is opened
     socket.onopen = () => {
-      console.log("Connection opened.");
+      console.log('Connection opened.');
+      textArea.value += '\r\nConnection opened.';
     };
 
     // Fired when data is received through a WebSocket
     socket.onmessage = (event) => {
-      console.log("Connection received message:", event);
+      console.log('Connection received message:', event);
+      textArea.value += `\r\n[Server]: ${event.data}`;
     };
 
     // Fired when a connection with a WebSocket is closed
     socket.onclose = () => {
-      console.log("Connection closed.");
+      console.log('Connection closed.');
+      textArea.value += '\r\nConnection closed.';
     };
 
     // Fired when a connection with a WebSocket has been closed because of an error
     socket.onerror = (event) => {
-      console.log("Connection closed due to error:", event);
+      console.log('Connection closed due to error:', event);
+      textArea.value += `\r\nConnection closed due to error: "${event.data || 'No connection.'}".`;
     };
 
+    // Reads text input to send message to WebSocket Server
+    const sendMessage = () => {
+      const message = textInput.value;
+      textArea.value += `\r\n[Client]: ${message}.`;
+      socket.send(message);
+    };
   </script>
 </html>
