@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- HEAD -->
+  <head>
+    <meta charset="utf-8" />
+    <link id="favicon" rel="icon" href="public/favicon.ico" />
+    <link rel="manifest" href="public/manifest.json" />
+    <link rel="stylesheet" href="bootstrap.min.css" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height, viewport-fit=cover, initial-scale=1"
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta name="Websocket" content="Websocket" />
+    <title id="title">Websocket</title>
+  </head>
+
+  <!-- BODY -->
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root" class="container-fluid">
+      <div class="row">
+
+        <!-- Header -->
+        <div class="col-12">
+          <div class="align-items-center d-flex justify-content-center m-5">
+            <h1 id="hello-world" class="text-dark">Hello World!</h1>
+          </div>
+        </div>
+
+        <!-- Input -->
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
+          <div class="align-items-center d-flex justify-content-center p-5">
+            <input class="form-control form-text" id="textInput" type="text" />
+            <button class="btn btn-primary" onclick="sendMessage()">
+              Submit
+            </button>
+          </div>
+        </div>
+
+        <!-- Chat History -->
+        <div class="col-12 mx-auto">
+          <div class="align-items-center d-flex justify-content-center p-5">
+            <textarea id="textArea" style="height:300px; width:500px"></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+
+  <!-- JAVASCRIPT -->
+  <script type="text/javascript">
+
+    // page elements
+    const textArea = window.document.getElementById('textArea');
+    const textInput = window.document.getElementById('textInput');
+
+    // create websocket connection
+    const websocket = new WebSocket('ws://localhost:3001');
+
+    websocket.onclose = () => {
+      console.log('Connection Closed.');
+      textArea.value += '\r\nConnection Closed.';
+    };
+
+    websocket.onopen = () => {
+      console.log('Connection Opened.');
+      textArea.value += '\r\nConnection Opened.';
+    };
+
+    websocket.onmessage = (event) => {
+      const { data } = event;
+      console.log(`Receieved message: [${data}]`);
+      textArea.value += `\r\n[Server]: ${data}`;
+    };
+
+    const sendMessage = () => {
+      const message = String(textInput.value);
+      textArea.value += `\r\n[Client]: ${message}`;
+      websocket.send(message);
+    };
+
+  </script>
+</html>
