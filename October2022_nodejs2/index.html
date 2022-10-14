@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <h1>Hello World</h1>
+    <textarea id="text-area" readonly style="height: 300px; width: 300px"></textarea>
+    <input id="text-input"/>
+    <button onClick="submitText()">submit</button>
+  </body>
+
+  <script type="text/javascript">
+    const textArea = document.getElementById('text-area');
+    const textInput = document.getElementById('text-input');
+
+    const websocket = new WebSocket("ws://localhost:3001");
+    websocket.onclose = () => {
+      textArea.innerHTML += 'Server closed websocket connection.\r';
+    };
+
+    websocket.onopen = () => {
+      textArea.innerHTML += 'Connected to websocket server.\r';
+    };
+
+    websocket.onmessage = (event) => {
+      const { data } = event;
+      textArea.innerHTML += `[Server]: ${data}\r`;
+    };
+
+    websocket.onerror = (event) => {
+      console.log('Error: ', event);
+    };
+
+    const submitText = () => {
+      const text = textInput.value;
+      websocket.send(text);
+      textArea.innerHTML += `[Client]: ${text}\r`;
+    };
+
+  </script>
+</html>
